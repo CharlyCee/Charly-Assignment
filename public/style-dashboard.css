@@ -2,18 +2,35 @@ body {
     background-color: #f8fafc;
     font-family: 'Nunito', sans-serif;
     font-weight: 200;
-    height: 100vh;
+    height: 100%;
     margin: 0;
+    background: url(images/olimpicback.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+.container{
+    position: relative;
+    height: max-content;
+    width: 100%;
+    
 }
 
 .card-header {
-    background-color: #343a40;
+    background-color: #8a0404;
     color: #fff;
+
+}
+.card-body{
+    font-weight: 500;
+    font-size: large;
+
 }
 
 .card {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    
 }
 
 .card:hover {
