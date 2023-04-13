@@ -15,7 +15,16 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Dashboard</div>
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between">
+                            <div class="h5">
+                                Welcome {{Auth::user()->username}}
+                            </div>
+                            <div class="h6">
+                                <a href="{{route('logout')}}" class="btn btn-sm btn-primary"> Log Out</a>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="card-body">
                         Welcome, Olympic 2023! You are logged in as a member of the broadcast site.

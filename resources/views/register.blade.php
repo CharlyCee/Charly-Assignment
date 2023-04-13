@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{{asset('stylereg.css')}}">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/8ac536ba87.js" crossorigin="anonymous"></script>
 </head>
 
@@ -26,20 +27,30 @@
     </header>
     <section class="home">
         <div class="form_container">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="login_form">
-                <form action="">
+                <form action="{{route('register')}}" method="POST">
+                    @csrf
                     <h2>Register</h2>
                     <div class="input_box">
                         <span class="icon"><i class="fa-solid fa-user"></i> </span>
-                        <input type="text" id="username" name="username" placeholder="Username">
+                        <input type="text" id="username" value="{{old('username')}}" name="username" placeholder="Username">
                     </div>
                     <div class="input_box">
                         <span class="icon"><i class="fa-solid fa-envelope"></i></span>
-                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                        <input type="email" id="email" value="{{old('email')}}" name="email" placeholder="Enter your email" required>
                     </div>
                     <div class="input_box">
                         <span class="icon"><i class="fa-solid fa-phone"></i></span>
-                        <input type="tel" placeholder="123-456-7890">
+                        <input type="tel" placeholder="123-456-7890" value="{{old('phone')}}" name="phone">
                     </div>
                     <div class="input_box">
                         <span class="icon"><i class="fa-solid fa-person-half-dress"></i></span>
@@ -52,11 +63,11 @@
                     </div>
                     <div class="input_box">
                         <span class="icon"><i class="fa-solid fa-globe"></i></span>
-                        <input type="text" id="nationality" name="nationality" placeholder="Enter your country">
+                        <input type="text" id="nationality" value="{{old('country')}}" name="country" placeholder="Enter your country">
                     </div>
                     <div class="input_box">
                         <span class="icon"><i class="fa-solid fa-arrow-pointer"></i></span>
-                        <select id="sports-select" name="sports" onkeyup="filterSports()">
+                        <select id="sports-select" name="sport" onkeyup="filterSports()">
                             <option value="0" disabled selected>Select Sport</option>
                             <option value="Athletics">Athletics (track and field)</option>
                             <option value="Swimming">Swimming</option>
@@ -89,7 +100,7 @@
                     </div>
                     <div class="input_box">
                         <span class="icon"><i class="fa-solid fa-calendar-week"></i></i></i></span>
-                        <input type="datetime-local" class="date_time" id="datetime" name="datetime"
+                        <input type="datetime-local" class="date_time" value="{{old('date')}}" id="datetime" name="date"
                             value="2023-04-01T10:30:00">
                     </div>
                     <div class="input_box">
@@ -98,7 +109,7 @@
                     </div>
                     <div class="input_box">
                         <span class="icon"><i class="fa-solid fa-lock"></i></span>
-                        <input type="password" id="confirm-pws" name="confirm-pws" placeholder="Confirm password"
+                        <input type="password" id="confirm-pws" name="password_confirmation" placeholder="Confirm password"
                             required>
                     </div>
 
@@ -111,7 +122,7 @@
 
                     <div class="login-signup">
                         <p>have an account?
-                            <a href="http://127.0.0.1:8000/login" id="Login">Login</a>
+                            <a href="{{url('/login')}}" id="Login">Login</a>
                         </p>
 
                     </div>

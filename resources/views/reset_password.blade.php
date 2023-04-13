@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Reset Password</title>
     <link rel="stylesheet" href="{{asset('style.css')}}">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/8ac536ba87.js" crossorigin="anonymous"></script>
@@ -42,31 +42,35 @@
                 </div>
             @endif
             <div class="login_form">
-                <form action="{{route('login')}}" method="POST">
+                <form action="{{route('change.password')}}" method="POST">
                     @csrf
-                    <h2>Login</h2>
+                    <h2>Forgot Password</h2>
+                    <input type="hidden" name="email" value="{{old('email')}}" placeholder="Enter your email" readonly required>
                     <div class="input_box">
-                        <span class="icon"><i class="fa-solid fa-envelope"></i></span>
-                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                        <span class="icon"><i class="fa-solid fa-lock"></i></span>
+                        <input type="text" id="code" name="code" placeholder="Enter your code" required>
                     </div>
                     <div class="input_box">
                         <span class="icon"><i class="fa-solid fa-lock"></i></span>
-                        <input type="password" id="password" name="password" placeholder="Enter Password" required>
+                        <input type="password" id="password" name="password" placeholder="Password" required>
                     </div>
-                    <div class="remember_reset">
-                        <span class="checkbox">
-                            <input type="checkbox" id="check">
-                            <label>Remember me</label>
-                        </span>
-                        <a href="{{route('forgot.password')}}" class="reset_password">Reset password?</a>
+                    <div class="input_box">
+                        <span class="icon"><i class="fa-solid fa-lock"></i></span>
+                        <input type="password" id="confirm-pws" name="password_confirmation" placeholder="Confirm password"
+                            required>
                     </div>
-                    <button type="submit" class="btn">Sign In</button>
-                    <div class="login-signup">
-                        <p>Don't have an account?
-                            <a href="{{url('/register')}}" id="signup">SignUp</a>
-                        </p>
 
+                    <button type="submit" class="btn">Change Password</button>
+                </form>
+                    <div class="login-signup">
+                        <p>Did not recieve code?
+                            <button onclick="document.getElementById('resendform').submit()" class="btn-transparent" id="Login">Resend Code</button>
+                        </p>
                     </div>
+
+                <form action="{{route('resendemail')}}" method="post" id="resendform">
+                    @csrf
+                    <input type="hidden" id="email" name="email" value="{{old('email')}}" placeholder="Enter your email" readonly required>
                 </form>
             </div>
         </div>

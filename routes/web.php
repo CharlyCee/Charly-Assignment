@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
 
@@ -20,20 +21,22 @@ Route::get('/', function () {
 }); */
 
 Route::get('/',[PagesController::class, 'home']);
-Route::get('/register',[PagesController::class, 'register']);
-Route::get('/login',[PagesController::class, 'login']);
-Route::get('/user/dashboard',[PagesController::class, 'user/dashboard']);
-
-
-/*
-Route::get('/hello', function () {
-    return '<h1>hello world</h1>';
+Route::middleware(['guest',])->group(function () {
+    Route::get('/register',[PagesController::class, 'register'])->name('register');
+    Route::get('/login',[PagesController::class, 'login'])->name('login');
+    Route::post('/register', [AuthController::class, 'doregister'])->name('register');
+    Route::post('/login', [AuthController::class, 'dologin'])->name('login');
+    Route::get('/forgot-password',[PagesController::class, 'forgotpassword'])->name('forgot.password');
+    Route::get('/reset-password',[PagesController::class, 'resetpassword'])->name('reset.password');
+    Route::post('/checkuser', [AuthController::class, 'checkuser'])->name('checkuser');
+    Route::post('/resendemail', [AuthController::class, 'resendemail'])->name('resendemail');
+    Route::post('/change-password', [AuthController::class, 'resetpassword'])->name('change.password');
 });
 
-Route::get('/about', function () {
-    return view('about');
-});
 
-Route::get('/users/{$id}', function ($id) {
-    return 'This is a user' . $id ;
-}); */
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user/dashboard',[PagesController::class, 'dashboard'])->name('dashboard');
+    Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
+});

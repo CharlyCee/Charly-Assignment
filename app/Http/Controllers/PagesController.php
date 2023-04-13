@@ -17,8 +17,14 @@ class PagesController extends Controller
     public function login(){
         return view('login');
        }
-       
+
     public function dashboard(){
         return view('user/dashboard');
+    }
+    public function forgotpassword(){
+        return view('forgot_passwod');
+    }
+    public function resetpassword(){
+        return view('reset_password');
     }
 }
