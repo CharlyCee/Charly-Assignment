@@ -27,4 +27,7 @@ class PagesController extends Controller
     public function resetpassword(){
         return view('reset_password');
     }
+    public function adminlogin(){
+        return view('admin/auth/login');
+    }
 }

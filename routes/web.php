@@ -24,6 +24,7 @@ Route::get('/',[PagesController::class, 'home']);
 Route::middleware(['guest',])->group(function () {
     Route::get('/register',[PagesController::class, 'register'])->name('register');
     Route::get('/login',[PagesController::class, 'login'])->name('login');
+    Route::get('/admin/auth/login',[PagesController::class, 'admin/auth/login'])->name('adminlogin');
     Route::post('/register', [AuthController::class, 'doregister'])->name('register');
     Route::post('/login', [AuthController::class, 'dologin'])->name('login');
     Route::get('/forgot-password',[PagesController::class, 'forgotpassword'])->name('forgot.password');
