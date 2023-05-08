@@ -28,6 +28,6 @@ class PagesController extends Controller
         return view('reset_password');
     }
     public function adminlogin(){
-        return view('admin/auth/login');
+        return view('admin.auth.login');
     }
 }

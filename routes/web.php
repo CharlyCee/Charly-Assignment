@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
+use Illuminate\Routing\RouteGroup;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +27,8 @@ Route::get('/',[PagesController::class, 'home']);
 Route::middleware(['guest',])->group(function () {
     Route::get('/register',[PagesController::class, 'register'])->name('register');
     Route::get('/login',[PagesController::class, 'login'])->name('login');
-    Route::get('/admin/auth/login',[PagesController::class, 'admin/auth/login'])->name('adminlogin');
+    Route::get('/admin/login',[PagesController::class, 'adminlogin'])->name('admin.login');
+    Route::post('/dologin', [AdminAuthController::class, 'dologin'])->name('admin.dologin');
     Route::post('/register', [AuthController::class, 'doregister'])->name('register');
     Route::post('/login', [AuthController::class, 'dologin'])->name('login');
     Route::get('/forgot-password',[PagesController::class, 'forgotpassword'])->name('forgot.password');
@@ -40,4 +44,12 @@ Route::middleware(['guest',])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/user/dashboard',[PagesController::class, 'dashboard'])->name('dashboard');
     Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
+});
+
+Route::middleware('isadmin')->prefix('admin')->group(function (){
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/all-users', [AdminController::class, 'allusers'])->name('admin.users');
+    Route::get('/users-reset/{id}', [AdminController::class, 'resetpassword'])->name('admin.users.reset');
+    Route::get('/users-delete/{id}', [AdminController::class, 'deleteuser'])->name('admin.users.delete');
+    Route::get('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 });
